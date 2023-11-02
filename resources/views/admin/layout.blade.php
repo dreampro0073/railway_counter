@@ -53,7 +53,9 @@
         var CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
     <!-- Bootstrap core JavaScript-->
-    <script src="{{url('assets/vendor1/jquery/jquery.min.js')}}"></script>
+    <!-- <script src="{{url('assets/vendor1/jquery/jquery.min.js')}}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    
     <!-- <script src="{{url('assets/js/jquery-ui.min.js')}}"></script> -->
     <script src="{{url('assets/vendor1/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 

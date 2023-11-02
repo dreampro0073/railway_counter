@@ -11,21 +11,21 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     
     $scope.init = function () {
 
-        // var d = new Date(); // for now
+        var d = new Date(); // for now
 
-        // var h = d.getHours();
-        // h = (h < 10) ? ("0" + h) : h ;
+        var h = d.getHours();
+        h = (h < 10) ? ("0" + h) : h ;
 
-        // var m = d.getMinutes();
-        // m = (m < 10) ? ("0" + m) : m ;
+        var m = d.getMinutes();
+        m = (m < 10) ? ("0" + m) : m ;
 
-        // var s = d.getSeconds();
-        // s = (s < 10) ? ("0" + s) : s ;
+        var s = d.getSeconds();
+        s = (s < 10) ? ("0" + s) : s ;
 
-        // var datetext = datetext + " " + h + ":" + m + ":" + s;
+        var datetext = h + ":" + m + ":" + s;
 
 
-        // $scope.formData.check_in = datetext;
+        $scope.formData.check_in = datetext;
 
         DBService.postCall({}, '/api/dashboard/init').then((data) => {
             if (data.success) {
