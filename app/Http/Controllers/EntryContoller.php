@@ -37,11 +37,11 @@ class EntryContoller extends Controller {
 	public function updateEntry($request){
 
 		$cre = [
-			''=>$request->,
+			'name'=>$request->name,
 		];
 
 		$rules = [
-			''=>'required',
+			'name'=>'required',
 		];
 
 		$validator = Validator::make($cre,$rules);
@@ -58,7 +58,29 @@ class EntryContoller extends Controller {
 				$message = "Stored Successfully!";
 			}
 
+			$entry->name = $request->name;
+			$entry->pnr_uid = $request->pnr_uid;
+			$entry->mobile_no = $request->mobile_no;
+			$entry->train_no = $request->train_no;
+			$entry->address = $request->address;
+			$entry->no_of_adults = $request->no_of_adults ? $request->no_of_adults : 0;
+			$entry->no_of_children = $request->no_of_children ? $request->no_of_children : 0;
+			$entry->no_of_baby_staff = $request->no_of_baby_staff ? $request->no_of_baby_staff : 0;
+			$entry->hours_occ = $request->hours_occ ? $request->hours_occ : 0;
+			$entry->check_in = date("Y-m-d H:i:s",strtotme($request->check_in));
+			$entry->check_out = date("Y-m-d H:i:s",strtotme($request->check_out));
+			$entry->seat_no = $request->seat_no;
+			// $entry->paid_amount = $request->paid_amount;
+			$entry->pay_type = $request->pay_type;
+			$entry->remarks = $request->remarks;
+
+
 			$entry->save();
+
+
+			if(!$request->id ){
+				$entry->unique_id = date('Y').000000 + $entry->id;
+			}
 			$data['success'] = true;
 		} else {
 			$data['success'] = false;
