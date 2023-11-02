@@ -79,7 +79,7 @@ class EntryContoller extends Controller {
 
 
 			if(!$request->id ){
-				$entry->unique_id = date('Y').000000 + $entry->id;
+				// $entry->unique_id = date('Y').000000 + $entry->id;
 			}
 			$data['success'] = true;
 		} else {

@@ -7,13 +7,16 @@
 
 @section('main')
 
-<div class="main" ng-controller="dashboardCtrl" ng-init="init();">   
+
+<div class="main" ng-controller="dashboardCtrl" ng-init="init();"> 
+    @include('admin.entries.add')
+
     <div class="card shadow mb-4 p-4"> 
         <form name="planForm" novalidate="novalidate" ng-submit="onSubmit(planForm.$valid)">
             <div class="row">
                 <div class="col-md-3 form-group">
-                    <label>Name</label>
-                    <input type="datetime-local" ng-model="formData.check_in" class="form-control" required />
+                    <label>Check In</label>
+                    <input type="time" ng-model="formData.check_in" class="form-control" required />
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Name</label>
