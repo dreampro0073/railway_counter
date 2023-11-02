@@ -41,23 +41,23 @@
                         </div> 
                         <div class="col-md-3 form-group">
                             <label>No of Adults</label>
-                            <input type="number" ng-model="formData.no_of_adults" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_adults" ng-change="changeAmount()" class="form-control" required />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>No of children</label>
-                            <input type="number" ng-model="formData.no_of_children" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_children" ng-change="changeAmount()" class="form-control" required />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Baby/Staff</label>
-                            <input type="number" ng-model="formData.no_of_baby_staff" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_baby_staff" ng-change="changeAmount()" class="form-control" required />
                         </div>
                         <div class="col-md-3 form-group">
-                            <label>Paid Amt.</label>
-                            <input type="number" ng-model="formData.paid_amount" class="form-control" required />
+                            <label>Paid Amtount</label>
+                            <input type="number" ng-model="formData.paid_amount" class="form-control" required readonly />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Hour Occ</label>
-                            <select ng-model="formData.pay_type" class="form-control" required >
+                            <select ng-model="formData.pay_type" class="form-control" ng-change="changeAmount()" required >
                                 <option value="">--select--</option>
                                 <option ng-repeat="item in hours" value=@{{item.value}}>@{{ item.label}}</option>
                             </select>
