@@ -56,23 +56,6 @@ class EntryContoller extends Controller {
 			} else {
 				$entry = new Entry;
 				$message = "Stored Successfully!";
-
-				$amount = 0;
-
-				
-				if($request->hours_occ > 0){
-					$hours = $request->hours_occ - 1; 
-					if($request->no_of_adults > 0){
-						$amount += 30 * $request->no_of_adults;
-						$amount +=  $hours * 20 * $request->no_of_adults;
-					}
-
-					if($request->no_of_children > 0){
-						$amount += 20 * $request->no_of_children;
-						$amount +=  $hours * 10 * $request->no_of_children;
-					}
-
-				}
 				
 			}
 
@@ -88,7 +71,7 @@ class EntryContoller extends Controller {
 			$entry->check_in = date("Y-m-d H:i:s",strtotme($request->check_in));
 			$entry->check_out = date("Y-m-d H:i:s",strtotme($request->check_out));
 			$entry->seat_no = $request->seat_no;
-			// $entry->paid_amount = $request->paid_amount;
+			$entry->paid_amount = $request->paid_amount;
 			$entry->pay_type = $request->pay_type;
 			$entry->remarks = $request->remarks;
 

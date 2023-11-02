@@ -4,6 +4,7 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
         no_of_adults:0,
         no_of_baby_staff:0,
         no_of_children:0,
+        paid_amount:0,
     };
 
     $scope.entry_id = 0;
@@ -41,5 +42,25 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
             }
         });
     }
+
+    $scope.changeAmount = function () {
+        if(!$scope.formData.id){        
+            if($scope.formData.hours_occ > 0){
+                $hours = $scope.formData.hours_occ - 1; 
+                if($scope.formData.no_of_adults > 0){
+                    $scope.formData.paid_amount += 30 * $scope.formData.no_of_adults;
+                    $scope.formData.paid_amount +=  $hours * 20 * $scope.formData.no_of_adults;
+                }
+
+                if($scope.formData.no_of_children > 0){
+                    $scope.formData.paid_amount += 20 * $scope.formData.no_of_children;
+                    $scope.formData.paid_amount +=  $hours * 10 * $scope.formData.no_of_children;
+                }
+
+            }
+        }
+
+    }
+
 });
 
