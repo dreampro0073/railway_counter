@@ -8,6 +8,6 @@ use DB;
 class Entry extends Model
 {
 
-    protected $table = 'entries';
+    protected $table = 'sitting_entries';
 
 }
