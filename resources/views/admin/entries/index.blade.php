@@ -12,7 +12,7 @@
     @include('admin.entries.add')
 
     <div class="card shadow mb-4 p-4"> 
-        
+        <button ng-click="">Add New</button>
     </div>
 </div>
 @endsection
