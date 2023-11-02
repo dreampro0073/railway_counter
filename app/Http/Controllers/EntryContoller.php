@@ -17,20 +17,14 @@ class EntryContoller extends Controller {
 		$entries = Entry::get();
 
 		$pay_types = Entry::payTypes();
+		$hours = Entry::hours();
 
 		$data['success'] = true;
 		$data['entries'] = $entries;
+		$data['pay_types'] = $pay_types;
+		$data['hours'] = $hours;
 		return Response::json($data, 200, []);
 	}	
-
-	public function initEntry(Request $request){
-
-		$pay_types = Entry::payTypes();
-
-		$data['success'] = true;
-		$data['entries'] = $entries;
-		return Response::json($data, 200, []);
-	}
 	
 	public function editEntry($id){
 		$sitting_entry = Entry::where('id', $id)->first();

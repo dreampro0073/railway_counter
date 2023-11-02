@@ -9,8 +9,12 @@
 
 <div class="main" ng-controller="dashboardCtrl" ng-init="init();">   
     <div class="card shadow mb-4 p-4"> 
-        <form name="plan" novalidate="novalidate" ng-submit="storePlan(plan.$valid)">
+        <form name="planForm" novalidate="novalidate" ng-submit="onSubmit(planForm.$valid)">
             <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Name</label>
+                    <input type="datetime-local" ng-model="formData.check_in" class="form-control" required />
+                </div>
                 <div class="col-md-3 form-group">
                     <label>Name</label>
                     <input type="text" ng-model="formData.name" class="form-control" required />
@@ -20,13 +24,17 @@
                     <input type="number" ng-model="formData.mobile_no" class="form-control" required />
                 </div>
                 <div class="col-md-3 form-group">
+                    <label>Address</label>
+                    <input type="text" ng-model="formData.address" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
                     <label>PNR/UID</label>
                     <input type="number" ng-model="formData.pnr_uid" class="form-control" required />
                 </div>
                 
                 <div class="col-md-3 form-group">
                     <label>Train No.</label>
-                    <input type="number" ng-model="formData.train_no" class="form-control" required />
+                    <input type="number" ng-model="formData.train_no" class="form-control" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Pay Type</label>
@@ -53,7 +61,14 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Hour Occ</label>
-                    <input type="number" ng-model="formData.hours_occ" class="form-control" required />
+                    <select ng-model="formData.pay_type" class="form-control" required >
+                        <option value="">--select--</option>
+                        <option ng-repeat="item in hours" value=@{{item.value}}>@{{ item.label}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Remarks</label>
+                    <input type="text" ng-model="formData.remarks" class="form-control" />
                 </div>
                  
             </div>
