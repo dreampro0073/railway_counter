@@ -28,3 +28,31 @@ app.directive('convertToNumber', function() {
     }
   };
 });
+
+angular.module('app').directive('dateTimePicker', function() {
+    var link = function(scope, element, attrs) {
+      // var modelName = attrs['ngModel'];
+      var dataobj = attrs["dataobj"];
+      var dataitem = attrs["dataitem"];
+      var id = attrs["id"];
+
+      $(element).datetimepicker(
+          {
+            format: 'hh:mm:ss A'
+          }
+      );
+
+      $(element).on("dp.change", function() {
+
+          scope[dataobj][dataitem] = $("#"+id).val();
+          scope.$apply();
+          scope.calCheck();
+
+      });
+    };
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: link
+    }
+});

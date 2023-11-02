@@ -37,5 +37,7 @@ Route::group(['prefix'=>"api"], function(){
 	Route::group(['prefix'=>"dashboard"], function(){
 		Route::post('/init',[EntryContoller::class,'initEntries']);
 		Route::post('/edit-init',[EntryContoller::class,'editEntry']);
+		Route::post('/store',[EntryContoller::class,'store']);
+		Route::post('/cal-check',[EntryContoller::class,'calCheck']);
 	});
 });

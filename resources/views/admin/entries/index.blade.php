@@ -2,13 +2,8 @@
 
 
 @section('header_scripts')
-    <link href=
-"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-        rel="stylesheet">
-         <link
-        href=
-"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
-        rel="stylesheet">
+    
+    
     
 @endsection
 
@@ -17,29 +12,83 @@
 
 <div class="main" ng-controller="dashboardCtrl" ng-init="init();"> 
     @include('admin.entries.add')
+    <div class="card shadow mb-4 p-4">
+        <div>
+            <button type="button" ng-click="addInit()" class="btn btn-primary">Add New</button>
+        </div>
 
-  <div class="card shadow mb-4 p-4"> 
-        <button ng-click="">Add New</button>
+        <div class="filters">
+            <form name="filterForm"  novalidate>
+                <div class="row" style="font-size: 14px">
+
+                    <div class="col-md-2 form-group">
+                        <label class="label-control">Name</label>
+                        <input type="text" class="form-control" ng-model="filter.name" />
+                    </div>                    
+                    <div class="col-md-2 form-group">
+                        <label class="label-control">Mobile</label>
+                        <input type="text" class="form-control" ng-model="filter.mobile_no" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="label-control">PNR</label>
+                        <input type="text" class="form-control" ng-model="filter.pnr_uid" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="label-control">Train</label>
+                        <input type="text" class="form-control" ng-model="filter.train_no" />
+                    </div>
+                    <div class="col-md-2 text-right" style="margin-top: 13px;" class="mb-2">
+                        <button type="button" ng-click="init()" class="btn btn-sm btn-primary">Search</button>
+                        <button type="button" ng-click="filterClear()" class="btn btn-sm btn-warning">Clear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>PNR</th>
+                        <th>Train</th>
+                        <th>Mobile No</th>
+                        <th>Pay Type</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in entries">
+                        <td>@{{ $index+1 }}</td>
+                        <td><span ng-click="addInit(item.id)">@{{ item.name }}</span></td>
+                        <td>@{{ item.pnr_uid }}</td>
+                        <td>@{{ item.train_no }}</td>
+                        <td>@{{ item.mobile_no }}</td>
+                        <td>@{{ item.pay_by }}</td>
+                        <td>@{{ item.paid_amount }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
 
 @section('footer_scripts')
     <?php $version = "0.0.1"; ?>
+    <script type="text/javascript" src="{{url('assets/scripts/moment.js')}}"></script>
+    
     <script type="text/javascript" src=
-        "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
-    </script>
- 
-    <script src=
-        "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+        "{{url('assets/scripts/datepicker.min.js')}}">
     </script>
 
-    <script type="text/javascript" src="{{url('assets/scripts/core/dashboard.js')}}"></script>
+    <script type="text/javascript" type="text/javascript" src="{{url('assets/scripts/core/dashboard.js')}}"></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('.datetime').datetimepicker({
             format: 'hh:mm:ss'
         });
-    </script>
+    </script> -->
 
 @endsection
