@@ -42,8 +42,11 @@ class User extends Authenticatable {
         );
     }
 
-    public static function getBanksList(){
-        $banks = DB::table('banks')->select('id', 'bank_name')->get();
+    public static function getPayType(){
+        $type = [
+            1 => "Cash",
+            2 => "UPI",
+        ]
 
         return $banks;
     }    
