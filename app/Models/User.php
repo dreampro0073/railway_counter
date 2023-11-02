@@ -42,14 +42,5 @@ class User extends Authenticatable {
         );
     }
 
-    public static function getPayType(){
-        $type = [
-            1 => "Cash",
-            2 => "UPI",
-        ]
-
-        return $banks;
-    }    
-
         
 }

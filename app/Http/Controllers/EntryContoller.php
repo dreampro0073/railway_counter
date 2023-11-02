@@ -14,10 +14,31 @@ use App\Models\Entry, App\Models\User;
 class EntryContoller extends Controller {
 	public function initEntries(Request $request){
 
-		$entries = Entry::get();
+		$entries = Entry::select('sitting_entries.*');
+		if($request->name){
+			$entries = $entries->where('sitting_entries.name', 'LIKE', '%'.$request->name.'%');
+		}		
+		if($request->mobile_no){
+			$entries = $entries->where('sitting_entries.mobile_no', 'LIKE', '%'.$request->mobile_no.'%');
+		}		
+		if($request->pnr_uid){
+			$entries = $entries->where('sitting_entries.pnr_uid', 'LIKE', '%'.$request->pnr_uid.'%');
+		}		
+		if($request->train_no){
+			$entries = $entries->where('sitting_entries.train_no', 'LIKE', '%'.$request->train_no.'%');
+		}
+		$entries = $entries->orderBy('id', "DESC")->take(100)->get();
 
 		$pay_types = Entry::payTypes();
 		$hours = Entry::hours();
+
+		$show_pay_types = Entry::showPayTypes();
+		if(sizeof($entries) > 0){
+			foreach ($entries as $item) {
+				$item->pay_by = isset($item->pay_type)?$show_pay_types[$item->pay_type]:'';
+			}
+
+		}
 
 		$data['success'] = true;
 		$data['entries'] = $entries;

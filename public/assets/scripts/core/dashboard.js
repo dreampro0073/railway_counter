@@ -7,18 +7,25 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
         paid_amount:0,
     };
 
+    $scope.filter = {};
+
     $scope.entry_id = 0;
 
     $scope.pay_types = [];
     $scope.hours = [];
     
     $scope.init = function () {
-        DBService.postCall({}, '/api/dashboard/init').then((data) => {
+        DBService.postCall($scope.filter, '/api/dashboard/init').then((data) => {
             if (data.success) {
                 $scope.pay_types = data.pay_types;
                 $scope.hours = data.hours;
             }
         });
+    }
+
+    $scope.filterClear = function(){
+        $scope.filter = {};
+        $scope.init();
     }
 
     $scope.addInit = function(entry_id = 0){
