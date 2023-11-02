@@ -17,6 +17,17 @@ class EntryContoller extends Controller {
 		// $entries = DB::table('entries')->get();
 		$entries = [];
 
+		$pay_types = Entry::payTypes();
+
+		$data['success'] = true;
+		$data['entries'] = $entries;
+		return Response::json($data, 200, []);
+	}	
+
+	public function initEntry(Request $request){
+
+		$pay_types = Entry::payTypes();
+
 		$data['success'] = true;
 		$data['entries'] = $entries;
 		return Response::json($data, 200, []);

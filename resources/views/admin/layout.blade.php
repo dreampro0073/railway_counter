@@ -70,8 +70,6 @@
     <!-- <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script> -->
 
     <script>
-    
-
         // $('.datepicker').datepicker({
         //     uiLibrary: 'bootstrap4',
         // });

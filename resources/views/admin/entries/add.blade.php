@@ -20,7 +20,7 @@
     <div class="card shadow mb-4">
       
         <div class="card-body">
-           <form name="plan" novalidate="novalidate" ng-submit="storePlan(plan.$valid)">
+            <form name="plan" novalidate="novalidate" ng-submit="storePlan(plan.$valid)">
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label>Plan Name</label>

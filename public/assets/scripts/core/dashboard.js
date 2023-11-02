@@ -3,11 +3,13 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     $scope.formData = {
         
     };
+
+    $scope.pay_types = [];
     
     $scope.init = function () {
         DBService.postCall({}, '/api/dashboard/init').then((data) => {
             if (data.success) {
-                console.log(data);
+                $scope.pay_types = data.pay_types;
             }
         });
     }
