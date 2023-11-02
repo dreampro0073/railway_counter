@@ -5,11 +5,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" oncontextmenu="return true;"> 
-                <form name="planForm" novalidate="novalidate" ng-submit="onSubmit(planForm.$valid)">
+                <form name="myForm" novalidate="novalidate" ng-submit="onSubmit(myForm.$valid)">
                     <div class="row">
                         <div class="col-md-3 form-group">
-                            <label>Name</label>
-                            <input type="datetime-local" ng-model="formData.check_in" class="form-control" required />
+                            <label>Check In</label>
+                            <input type="time" ng-model="formData.check_in" class="form-control" required />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Name</label>
