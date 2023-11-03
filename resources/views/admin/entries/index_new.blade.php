@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>hashaj</title>
-    <link rel="stylesheet" type="text/css" href="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/simple-line-icons/simple-line-icons.min.css">
+@extends('admin.layout')
 
-    <link rel="stylesheet" type="text/css" href="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/jquery-ui/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="{{url('assets/css/custom.css')}}">
-</head>
-<body  ng-app="app">
+@section('main')
     <div class="main" ng-controller="dashboardCtrl" ng-init="init();"> 
         @include('admin.entries.add')
         <div class="card shadow mb-4 p-4">
@@ -91,35 +79,6 @@
            
         </div>
     </div>
+@endsection
     
-    <script type="text/javascript">
-    var base_url = "{{url('/')}}";
-    var CSRF_TOKEN = "{{ csrf_token() }}";
-    </script>
-    <script type="text/javascript" src="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/jquery.min.js"></script>
-    <script type="text/javascript" src="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="https://testadmin.bbfootballschools.com/portal/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-
-    <script type="text/javascript" src="{{url('assets/scripts/angular.min.js')}}" ></script>
-
-    <script type="text/javascript" src="{{url('assets/scripts/jcs-auto-validate.js')}}" ></script>
-
-    <script type="text/javascript" src="{{url('assets/js/custom.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/scripts/core/app.js')}}" ></script>
-    @yield('footer_scripts')
-
-    <script type="text/javascript" src="{{url('assets/scripts/core/services.js')}}" ></script>
-
-    <script type="text/javascript" type="text/javascript" src="{{url('assets/scripts/core/dashboard.js')}}"></script>
-
-
-
-<script>
-  angular.module("app").constant("CSRF_TOKEN", "{{ csrf_token() }}");
-</script>
-
-</body>
-</html>
+    

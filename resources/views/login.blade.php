@@ -1,7 +1,12 @@
-@extends('layout')
-
-
-@section('main')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('assets/css/custom.css')}}">
+</head>
+<body>
 
 <div style="height: 100vh;display: flex;align-content: center;justify-content:center;">
     <div class="container">
@@ -63,5 +68,15 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var base_url = "{{url('/')}}";
+    var CSRF_TOKEN = "{{ csrf_token() }}";
+    </script>
+    <script type="text/javascript" src="{{url('assets/scripts/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/scripts/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/scripts/bootstrap.min.js')}}"></script>
 
-@endsection
+    <script type="text/javascript" src="{{url('assets/js/custom.js')}}"></script>
+    
+</body>
+</html>
