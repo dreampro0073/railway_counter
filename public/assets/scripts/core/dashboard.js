@@ -13,6 +13,10 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     $scope.filter = {};
 
     $scope.entry_id = 0;
+    $scope.total_upi_collection = 0;
+    $scope.total_cash_collection = 0;
+    $scope.total_collection = 0;
+    $scope.check_shift = "";
     $scope.pay_types = [];
     $scope.hours = [];
     
@@ -31,9 +35,8 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
         var ampm = h >= 12 ? 'PM' : 'AM';
 
 
-        var datetext = h + ":" + m + ":" + s + ' ' + ampm;
-
-
+        // var datetext = h + ":" + m + ":" + s + ' ' + ampm;
+        var datetext = h + ":" + m + ":" + s;
 
         $scope.formData.check_in = datetext;
 
@@ -44,6 +47,11 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
                 $scope.pay_types = data.pay_types;
                 $scope.hours = data.hours;
                 $scope.entries = data.entries;
+
+                $scope.total_upi_collection = data.total_shift_upi;
+                $scope.total_cash_collection = data.total_shift_cash;
+                $scope.total_collection = data.total_collection;
+                $scope.check_shift = data.check_shift;
             }
         });
     }
@@ -84,6 +92,7 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     }
 
     $scope.onSubmit = function () {
+        $scope.loading = true;
         // console.log($scope.formData);return;
         DBService.postCall($scope.formData, '/api/dashboard/store').then((data) => {
             if (data.success) {
@@ -100,8 +109,10 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
                     balance_amount:0,
                     hours_occ:0,
                 };
+                $scope.init();
 
             }
+            $scope.loading = false;
         });
     }
     $scope.calCheck = () => {
@@ -137,4 +148,3 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
 
     }
 });
-

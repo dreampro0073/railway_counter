@@ -7,11 +7,18 @@
             <div style="box-shadow: 0 0 5px rgba(0,0,0,0.5);">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6" style="padding-top: 18px;">
+                        <div class="col-md-6" style="padding-top: 15px;">
                             <span style="font-size: 18px;font-weight: bold;font-style: italic;">M/s New Nabaratna Hospitality Pvt. Ltd.</span> 
+                            <div style="font-size: 12px; padding-top: 5px;">Guwahati Railway Station | GSTIN : 18AAICN4763E1ZA</div>
                         </div>
-                        <div class="col-md-6" style="text-align: right;padding: 15px 0;">
-                            <button type="button" ng-click="add()" class="btn btn-primary">Add New</button>
+                        <div class="col-md-6" style="text-align: right;padding: 8px 0;">
+                            <label>Shift : </label><b> @{{ check_shift }} </b>  
+                            <button type="button" ng-click="add()" class="btn btn-primary btn-sm" style="margin-left: 16px;">Add New</button>
+                            <div style="font-size: 12px; padding-top: 5px;">
+                                <label>Total Collection : </label> @{{ total_collection }} | 
+                                <label>Total UPI Collection : </label> @{{ total_upi_collection }} | 
+                                <label>Total Cash Collection : </label> @{{ total_cash_collection }} 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,8 +55,8 @@
 
                 <div>
                     <table class="table table-bordered table-striped" >
-                        <thead>
-                            <tr>
+                        <thead style="background-color: rgba(0,0,0,.075);">
+                            <tr class="table-primary">
                                 <th>S.no</th>
                                 <th>Name</th>
                                 <th>Mobile No</th>
@@ -58,18 +65,22 @@
                                 <th>Train</th>
                                 <th>Pay Type</th>
                                 <th>Total Amount</th>
+                                <th>#</th>
                             </tr>
                         </thead>
                         <tbody ng-if="entries.length > 0">
                             <tr ng-repeat="item in entries">
                                 <td>@{{ $index+1 }}</td>
-                                <td><a href="javascript:;" ng-click="edit(item.id)" style="font-style: italic;text-decoration: underline;font-weight: bold;">@{{ item.name }}</a></td>
+                                <td>@{{ item.name }}</td>
                                 <td>@{{ item.mobile_no }}</td>
 
                                 <td>@{{ item.pnr_uid }}</td>
                                 <td>@{{ item.train_no }}</td>
                                 <td>@{{ item.pay_by }}</td>
                                 <td>@{{ item.paid_amount }}</td>
+                                <td>
+                                    <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="javascript:;" class="btn btn-success btn-sm">Print</a></td>
                             </tr>
                         </tbody>
                     </table>

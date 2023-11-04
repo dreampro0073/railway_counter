@@ -16,7 +16,9 @@ use App\Models\User, App\Models\Plan;
 class AdminController extends Controller {
 
 
-	public function dashboard(Request $request){        
+
+	public function dashboard(Request $request){
+		    
 		return view('admin.entries.index_new', [
             "sidebar" => "dashboard",
             "subsidebar" => "dashboard",

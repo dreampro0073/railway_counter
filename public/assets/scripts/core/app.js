@@ -38,7 +38,7 @@ angular.module('app').directive('dateTimePicker', function() {
 
       $(element).datetimepicker(
           {
-            format: 'hh:mm:ss A'
+            format: 'HH:mm:ss'
           }
       );
 

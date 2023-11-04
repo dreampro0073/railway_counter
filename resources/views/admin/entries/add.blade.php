@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label>PNR/UID</label>
-                            <input type="number" ng-model="formData.pnr_uid" class="form-control" required />
+                            <input type="number" ng-model="formData.pnr_uid" class="form-control" />
                         </div>
                         
                         <div class="col-md-4 form-group">
@@ -49,15 +49,15 @@
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label>No of Adults</label>
-                            <input type="number" ng-model="formData.no_of_adults" ng-change="changeAmount()" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_adults" ng-change="changeAmount()" class="form-control" />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>No of children</label>
-                            <input type="number" ng-model="formData.no_of_children" ng-change="changeAmount()" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_children" ng-change="changeAmount()" class="form-control" />
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Baby/Staff</label>
-                            <input type="number" ng-model="formData.no_of_baby_staff" class="form-control" required />
+                            <input type="number" ng-model="formData.no_of_baby_staff" class="form-control" />
                         </div>
 
                         <div class="col-md-3 form-group">
@@ -99,13 +99,12 @@
                             <label>Remarks</label>
                             <textarea ng-model="formData.remarks" class="form-control"></textarea>
                         </div>
-
-                         
                     </div>
                     <div class="pt-4">
                         <button type="submit" class="btn btn-primary" ng-disabled="loading">
                             <span ng-if="!loading">Submit</span>
-                            <span ng-if="loading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            <span ng-if="loading">Loading...</span>
+
                         </button> 
                     </div>  
                     

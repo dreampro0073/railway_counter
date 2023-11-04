@@ -14,6 +14,8 @@ use App\Models\Entry, App\Models\User;
 class EntryContoller extends Controller {
 	public function initEntries(Request $request){
 
+		$check_shift = Entry::checkShift();
+
 		$entries = Entry::select('sitting_entries.*');
 		if($request->name){
 			$entries = $entries->where('sitting_entries.name', 'LIKE', '%'.$request->name.'%');
@@ -28,6 +30,26 @@ class EntryContoller extends Controller {
 			$entries = $entries->where('sitting_entries.train_no', 'LIKE', '%'.$request->train_no.'%');
 		}
 		$entries = $entries->orderBy('id', "DESC")->take(100)->get();
+
+		$total_shift_cash = 0;
+		$total_shift_upi = 0;
+
+		if($check_shift != "C"){
+			$total_shift_upi = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->sum("paid_amount");
+
+			$total_shift_cash = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->sum("paid_amount");	
+		}
+		
+		if($check_shift == "C"){
+
+			$total_shift_upi = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->sum("paid_amount");
+
+			$total_shift_cash = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->sum("paid_amount");
+			
+		}
+
+
+		$total_collection = $total_shift_upi + $total_shift_cash;
 
 		$pay_types = Entry::payTypes();
 		$hours = Entry::hours();
@@ -44,6 +66,10 @@ class EntryContoller extends Controller {
 		$data['entries'] = $entries;
 		$data['pay_types'] = $pay_types;
 		$data['hours'] = $hours;
+		$data['total_shift_upi'] = $total_shift_upi;
+		$data['total_shift_cash'] = $total_shift_cash;
+		$data['total_collection'] = $total_collection;
+		$data['check_shift'] = $check_shift;
 		return Response::json($data, 200, []);
 	}	
 	
@@ -67,17 +93,19 @@ class EntryContoller extends Controller {
 		
 		$check_in = $request->check_in;
 		$hours_occ = $request->hours_occ;
-		$ss_time = strtotime(date("h:i:s",strtotime($check_in)));
-		$new_time = $ss_time+(60*60*$hours_occ);
+
+
+		$ss_time = strtotime(date("H:i:s",strtotime($check_in)));
+		$new_time = date("H:i:s", strtotime('+'.$hours_occ.' hours', $ss_time));
 
 		$data['success'] = true;
-		$data['check_out'] = date("h:i:s A",$new_time);
+		$data['check_out'] = $new_time;
 		return Response::json($data, 200, []);
 	}
 
 	public function store(Request $request){
 
-
+		$check_shift = Entry::checkShift();
 
 		$cre = [
 			'name'=>$request->name,
@@ -90,12 +118,20 @@ class EntryContoller extends Controller {
 		$validator = Validator::make($cre,$rules);
 
 		if($validator->passes()){
-
+			$total_amount = $request->total_amount;
 			if($request->id){
 				$group_id = $request->id;
-				
-				$entry = Entry::find($request->id);;
+				$entry = Entry::find($request->id);
 				$message = "Updated Successfully!";
+
+				if(isset($entry)){
+					if($check_shift != $entry->shift){
+						$total_amount = $total_amount - $entry->paid_amount;
+						$entry = new Entry;
+						$message = "Stored Successfully!";
+					}
+				}
+
 			} else {
 				$entry = new Entry;
 				$message = "Stored Successfully!";
@@ -111,17 +147,29 @@ class EntryContoller extends Controller {
 			$entry->no_of_children = $request->no_of_children ? $request->no_of_children : 0;
 			$entry->no_of_baby_staff = $request->no_of_baby_staff ? $request->no_of_baby_staff : 0;
 			$entry->hours_occ = $request->hours_occ ? $request->hours_occ : 0;
-			$entry->check_in = date("h:i:s",strtotime($request->check_in));
-			$entry->check_in = $request->check_in;
+			$entry->check_in = date("H:i:s",strtotime($request->check_in));
+			$entry->check_out = date("H:i:s",strtotime($request->check_out));
+			// $entry->check_in = $request->check_in;
 			// $entry->check_in = $request->check_in;
 			// $entry->check_out = date("Y-m-d H:i:s",strtotme($request->check_out));
 			$entry->seat_no = $request->seat_no;
-			$entry->paid_amount = $request->total_amount;
+			$entry->paid_amount = $total_amount;
 			$entry->pay_type = $request->pay_type;
 			$entry->remarks = $request->remarks;
-
-
+			$entry->shift = $check_shift;
 			$entry->save();
+
+			$check_in_time = strtotime($entry->check_in);
+        	$current_time = strtotime(date("H:i:s"));
+        	
+        	$date = date("Y-m-d");
+
+        	if($current_time > strtotime("00:00:00") && $current_time < strtotime("06:00:00")){
+	           	$date = date("Y-m-d",strtotime("-1 day"));
+	        }
+	        $entry->date = $date;
+			$entry->save();
+
 
 
 			if(!$request->id ){
