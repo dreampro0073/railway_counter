@@ -34,7 +34,8 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label>Check In</label>
-                            <input type="text" class="form-control" date-time-picker ng-model="formData.check_in" ng-change="calCheck()" dataobj="formData" dataitem="check_in" id="check_in">
+                            <!-- <input type="text" class="form-control" date-time-picker ng-model="formData.check_in" ng-change="calCheck()" dataobj="formData" dataitem="check_in" id="check_in"> -->
+                            <input type="text" class="form-control" date-time-picker ng-model="formData.check_in" ng-change="calCheck()" dataobj="formData" dataitem="check_in" id="timePicker">
                         </div>
                         <div class="col-md-4 form-group">
                             <label>PNR/UID</label>

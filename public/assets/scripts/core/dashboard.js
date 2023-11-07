@@ -22,23 +22,23 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     
     $scope.init = function () {
 
-        var d = new Date(); // for now
+        // var d = new Date(); // for now
 
-        var h = d.getHours();
-        h = (h < 10) ? ("0" + h) : h ;
+        // var h = d.getHours();
+        // h = (h < 10) ? ("0" + h) : h ;
 
-        var m = d.getMinutes();
-        m = (m < 10) ? ("0" + m) : m ;
+        // var m = d.getMinutes();
+        // m = (m < 10) ? ("0" + m) : m ;
 
-        var s = d.getSeconds();
-        s = (s < 10) ? ("0" + s) : s ;
-        var ampm = h >= 12 ? 'PM' : 'AM';
+        // var s = d.getSeconds();
+        // s = (s < 10) ? ("0" + s) : s ;
+        // var ampm = h >= 12 ? 'PM' : 'AM';
 
 
-        // var datetext = h + ":" + m + ":" + s + ' ' + ampm;
-        var datetext = h + ":" + m + ":" + s;
+        // // var datetext = h + ":" + m + ":" + s + ' ' + ampm;
+        // var datetext = h + ":" + m + ":" + s;
 
-        $scope.formData.check_in = datetext;
+        // $scope.formData.check_in = datetext;
 
         
         DBService.postCall($scope.filter, '/api/dashboard/init').then((data) => {
@@ -108,17 +108,31 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
                     paid_amount:0,
                     balance_amount:0,
                     hours_occ:0,
+                    check_in:'',
+                    check_out:'',
                 };
                 $scope.init();
+                // window.location = base_url+'/print';
+                window.open(base_url+'/print', '_blank');
 
             }
             $scope.loading = false;
         });
     }
+    // $scope.calCheck = () => {
+    //     DBService.postCall({check_in:$scope.formData.check_in,hours_occ:$scope.formData.hours_occ}, '/api/dashboard/cal-check').then((data) => {
+    //         if (data.success) {
+    //            console.log(data);
+    //            $scope.formData.check_out = data.check_out;
+    //            $scope.changeAmount();
+    //         }
+    //     });
+    // }
+
     $scope.calCheck = () => {
         DBService.postCall({check_in:$scope.formData.check_in,hours_occ:$scope.formData.hours_occ}, '/api/dashboard/cal-check').then((data) => {
             if (data.success) {
-               console.log(data);
+               // console.log(data);
                $scope.formData.check_out = data.check_out;
                $scope.changeAmount();
             }

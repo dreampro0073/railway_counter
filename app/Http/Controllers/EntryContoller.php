@@ -29,7 +29,7 @@ class EntryContoller extends Controller {
 		if($request->train_no){
 			$entries = $entries->where('sitting_entries.train_no', 'LIKE', '%'.$request->train_no.'%');
 		}
-		$entries = $entries->orderBy('id', "DESC")->take(100)->get();
+		$entries = $entries->orderBy('id', "DESC")->where('date',date("Y-m-d"))->get();
 
 		$total_shift_cash = 0;
 		$total_shift_upi = 0;
@@ -89,12 +89,28 @@ class EntryContoller extends Controller {
 		$data['sitting_entry'] = $sitting_entry;
 		return Response::json($data, 200, []);
 	}
+	// public function calCheck(Request $request){
+		
+	// 	$check_in = $request->check_in;
+	// 	$hours_occ = $request->hours_occ;
+
+
+	// 	$ss_time = strtotime(date("H:i:s",strtotime($check_in)));
+	// 	$new_time = date("H:i:s", strtotime('+'.$hours_occ.' hours', $ss_time));
+
+	// 	$data['success'] = true;
+	// 	$data['check_out'] = $new_time;
+	// 	return Response::json($data, 200, []);
+	// }
+
 	public function calCheck(Request $request){
 		
 		$check_in = $request->check_in;
-		$hours_occ = $request->hours_occ; 
-		$ss_time = strtotime(date("H:i:s",strtotime($check_in)));
-		$new_time = date("H:i:s", strtotime('+'.$hours_occ.' hours', $ss_time));
+		$hours_occ = $request->hours_occ;
+
+		$ss_time = strtotime(date("h:i A",strtotime($check_in)));
+
+		$new_time = date("h:i A", strtotime('+'.$hours_occ.' hours', $ss_time));
 
 		$data['success'] = true;
 		$data['check_out'] = $new_time;
@@ -145,11 +161,11 @@ class EntryContoller extends Controller {
 			$entry->no_of_children = $request->no_of_children ? $request->no_of_children : 0;
 			$entry->no_of_baby_staff = $request->no_of_baby_staff ? $request->no_of_baby_staff : 0;
 			$entry->hours_occ = $request->hours_occ ? $request->hours_occ : 0;
-			$entry->check_in = date("H:i:s",strtotime($request->check_in));
-			$entry->check_out = date("H:i:s",strtotime($request->check_out));
-			// $entry->check_in = $request->check_in;
-			// $entry->check_in = $request->check_in;
-			// $entry->check_out = date("Y-m-d H:i:s",strtotme($request->check_out));
+			$entry->check_in = date("h:i A",strtotime($request->check_in));
+			$entry->check_out = date("h:i A",strtotime($request->check_out));
+			// $entry->check_in = date("H:i:s",strtotime($request->check_in));
+			// $entry->check_out = date("H:i:s",strtotime($request->check_out));
+			
 			$entry->seat_no = $request->seat_no;
 			$entry->paid_amount = $total_amount;
 			$entry->pay_type = $request->pay_type;
