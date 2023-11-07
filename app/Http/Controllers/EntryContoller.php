@@ -92,9 +92,7 @@ class EntryContoller extends Controller {
 	public function calCheck(Request $request){
 		
 		$check_in = $request->check_in;
-		$hours_occ = $request->hours_occ;
-
-
+		$hours_occ = $request->hours_occ; 
 		$ss_time = strtotime(date("H:i:s",strtotime($check_in)));
 		$new_time = date("H:i:s", strtotime('+'.$hours_occ.' hours', $ss_time));
 
