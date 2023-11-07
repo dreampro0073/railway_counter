@@ -80,7 +80,7 @@
                                 <td>@{{ item.paid_amount }}</td>
                                 <td>
                                     <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="javascript:;" class="btn btn-success btn-sm">Print</a></td>
+                                    <a href="{{url('/print')}}/@{{item.id}}" class="btn btn-success btn-sm">Print</a></td>
                             </tr>
                         </tbody>
                     </table>

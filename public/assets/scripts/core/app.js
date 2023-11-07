@@ -29,30 +29,30 @@ app.directive('convertToNumber', function() {
   };
 });
 
-angular.module('app').directive('dateTimePicker', function() {
-    var link = function(scope, element, attrs) {
-      // var modelName = attrs['ngModel'];
-      var dataobj = attrs["dataobj"];
-      var dataitem = attrs["dataitem"];
-      var id = attrs["id"];
+// angular.module('app').directive('dateTimePicker', function() {
+//     var link = function(scope, element, attrs) {
+//       // var modelName = attrs['ngModel'];
+//       var dataobj = attrs["dataobj"];
+//       var dataitem = attrs["dataitem"];
+//       var id = attrs["id"];
 
-      $(element).datetimepicker(
-          {
-            format: 'HH:mm:ss'
-          }
-      );
+//       $(element).datetimepicker(
+//           {
+//             format: 'HH:mm:ss'
+//           }
+//       );
 
-      $(element).on("dp.change", function() {
+//       $(element).on("dp.change", function() {
 
-          scope[dataobj][dataitem] = $("#"+id).val();
-          scope.$apply();
-          scope.calCheck();
+//           scope[dataobj][dataitem] = $("#"+id).val();
+//           scope.$apply();
+//           scope.calCheck();
 
-      });
-    };
-    return {
-        require: 'ngModel',
-        restrict: 'A',
-        link: link
-    }
-});
+//       });
+//     };
+//     return {
+//         require: 'ngModel',
+//         restrict: 'A',
+//         link: link
+//     }
+// });

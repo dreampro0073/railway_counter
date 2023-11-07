@@ -14,14 +14,49 @@ use Redirect, Validator, Hash, Response, Session, DB,DateTime;
 use App\Models\User;
 use Crypt;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class UserController extends Controller {
 
     public function index(){
+        return Redirect::to('admin/dashboard');
+        
         return view('index');
     }
 
    
-    
+    public function print(){
+        return view('admin.print_page');
+    }
+
+    public function printPost($id = 0){
+
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        define("DOMPDF_UNICODE_ENABLED", true);
+        
+        // return view('admin.print_page');
+        $html = view('admin.print_page');
+
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4',);
+        $dompdf->setPaper([0,0,190,500]);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('today_target'.date("dmY",strtotime("now")).'.pdf',array("Attachment" => false));
+
+        
+        // return view('admin.print_page1');
+    }
 
   
     public function testx(){
