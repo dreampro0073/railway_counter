@@ -32,6 +32,24 @@ class UserController extends Controller {
 
     public function printPost($id = 0){
 
+        $print_data = DB::table('sitting_entries')->where('id', $id)->first();
+        $print_data->total_member = $print_data->no_of_adults + $print_data->no_of_children + $print_data->no_of_baby_staff;
+        $print_data->adult_first_hour_amount = 0;
+        $print_data->children_first_hour_amount = 0;
+        $hours = $print_data->hours_occ - 1;
+        $print_data->adult_other_hour_amount = 0;
+        $print_data->children_other_hour_amount = 0; 
+
+        if($print_data->hours_occ > 0) {
+            $print_data->adult_first_hour_amount = $print_data->no_of_adults * 30;
+            $print_data->children_first_hour_amount = $print_data->no_of_children * 20;
+        }      
+        
+        if($hours > 0){
+            $print_data->adult_other_hour_amount = $print_data->no_of_adults * 20 * $hours;
+            $print_data->children_other_hour_amount = $print_data->no_of_children * 10 * $hours; 
+        }       
+
         $options = new Options();
         $options->set('isRemoteEnabled', true);
 
@@ -40,7 +58,9 @@ class UserController extends Controller {
         define("DOMPDF_UNICODE_ENABLED", true);
         
         // return view('admin.print_page');
-        $html = view('admin.print_page');
+
+
+        $html = view('admin.print_page', compact('print_data'));
 
         $dompdf->loadHtml($html);
 

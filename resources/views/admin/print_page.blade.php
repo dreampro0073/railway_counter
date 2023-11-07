@@ -66,21 +66,21 @@
 				<span class="text">Date: <?php echo date("d-m-Y"); ?></span>
 			</div>
 		</div>
-		<span class="name">Name : Dipanshu Chuahan</span>
+		<span class="name">Name : {{$print_data->name}}</span>
 		<div class="table-div">
 			<div class="w-50">
-				<span class="text">PNR/ID No.: 898989</span>
+				<span class="text">PNR/ID No.: {{$print_data->pnr_uid}}</span>
 			</div>
 			<div class="w-50">
-				<span class="text">Mob: 7351334717</span>
+				<span class="text">Mob: {{$print_data->mobile_no}}</span>
 			</div>
 		</div>
 		<div class="table-div" style="margin-bottom: 20px;">
 			<div class="w-50">
-				<span class="text">In Time: 7:30 PM</span>
+				<span class="text">In Time: {{$print_data->check_in}}</span>
 			</div>
 			<div class="w-50">
-				<span class="text">Out Time: 7:30 PM</span>
+				<span class="text">Out Time: {{$print_data->check_out}}</span>
 			</div>
 		</div>
 		<table style="width:100%;margin: -1;" border="1" cellpadding="4" cellspacing="0" >
@@ -93,38 +93,38 @@
 			<tr>
 				<td class="w-50">For First hours or part there of</td>
 				<td class="w-16">Adult 30/- Perpersal</td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->no_of_adults}}</td>
+				<td class="w-16">{{$print_data->adult_first_hour_amount}}</td>
 			</tr>
 			<tr>
 				<td class="w-50">Per Exterded hours or part there of</td>
 				<td class="w-16">Adult 20/- Perpersal</td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->no_of_adults}}</td>
+				<td class="w-16">{{$print_data->adult_other_hour_amount}}</td>
 			</tr>
 			<tr>
 				<td class="w-50">1st hours of part there of</td>
 				<td class="w-16">Age 5 to 12, 20/ Perchilores</td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->no_of_children}}</td>
+				<td class="w-16">{{$print_data->children_first_hour_amount}}</td>
 			</tr>
 			<tr>
 				<td class="w-50">Per Exterded hours or part there of</td>
 				<td class="w-16">ge 5 to 12, 10/ Perchilores</td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->no_of_children}}</td>
+				<td class="w-16">{{$print_data->children_other_hour_amount}}</td>
 			</tr>
 			<tr>
 				<td class="w-50">Age Below5 Years</td>
 				<td class="w-16">Free</td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->no_of_baby_staff}}</td>
+				<td class="w-16">--</td>
 			</tr>
 			<tr>
 				<td class="w-50"><b>Total</b></td>
 				<td class="w-16"></td>
-				<td class="w-16"></td>
-				<td class="w-16"></td>
+				<td class="w-16">{{$print_data->total_member}}</td>
+				<td class="w-16">{{$print_data->paid_amount}}</td>
 			</tr>
 		</table>
 		<div style="margin-top: 20px;text-align: right;">
