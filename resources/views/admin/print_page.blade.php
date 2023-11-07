@@ -110,7 +110,7 @@
 			</tr>
 			<tr>
 				<td class="w-50">Per Exterded hours or part there of</td>
-				<td class="w-16">ge 5 to 12, 10/ Perchilores</td>
+				<td class="w-16">Age 5 to 12, 10/ Perchilores</td>
 				<td class="w-16">{{$print_data->no_of_children}}</td>
 				<td class="w-16">{{$print_data->children_other_hour_amount}}</td>
 			</tr>
