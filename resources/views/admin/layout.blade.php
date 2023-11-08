@@ -31,24 +31,15 @@
         var base_url = "{{url('/')}}";
         var CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
-    <!-- <script type="text/javascript" src="{{url('assets/scripts/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/scripts/jquery-ui.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/scripts/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/scripts/moment.min.js')}}"></script>
-    <script type="text/javascript" src="{{url('assets/scripts/bootstrap-datetimepicker.min.js')}}"></script> -->
     <script type="text/javascript" src="{{url('assets/scripts/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{url('bootstrap3/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{url('date/bootstrapp-time.min.js')}}"></script>
 
     <script type="text/javascript" src="{{url('assets/scripts/angular.min.js')}}" ></script>
-
     <script type="text/javascript" src="{{url('assets/scripts/jcs-auto-validate.js')}}" ></script>
-
     <script type="text/javascript" src="{{url('assets/js/custom.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/scripts/core/app.js')}}" ></script>
-
     <script type="text/javascript" src="{{url('assets/scripts/core/services.js')}}" ></script>
-
     <script type="text/javascript" type="text/javascript" src="{{url('assets/scripts/core/dashboard.js')}}"></script>
     <script>
       angular.module("app").constant("CSRF_TOKEN", "{{ csrf_token() }}");

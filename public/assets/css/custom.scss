@@ -159,6 +159,14 @@ button.btn{
 
 }
 .ui-button .ui-icon {
-        background-image: url("../img/arrow-down-sign-to-navigate.png");
-
+    background-image: url("../img/arrow-down-sign-to-navigate.png");
+}
+.form-control{
+	padding:10px 12px !important;
+	height: auto;
+}
+label.error{
+	font-size: 12px !important;
+	color: red;
+	font-weight: normal;
 }

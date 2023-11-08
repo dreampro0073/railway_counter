@@ -18,11 +18,8 @@ use App\Http\Controllers\EntryContoller;
 */
 
 
-Route::get('/', [AdminController::class,'dashboard']);
-// Route::get('/', [UserController::class,'login'])->name("login");
-// Route::post('/login', [UserController::class,'postLogin']);
-// Route::get('/print', [UserController::class,'print']);
-Route::get('/print/{id?}', [UserController::class,'printPost']);
+Route::get('/', [UserController::class,'login'])->name("login");
+Route::post('/login', [UserController::class,'postLogin']);
 
 
 Route::get('/logout',function(){
@@ -30,12 +27,14 @@ Route::get('/logout',function(){
 	return Redirect::to('/');
 });
 
-// Route::group(['middleware'=>'auth'],function(){
+Route::group(['middleware'=>'auth'],function(){
 	Route::group(['prefix'=>"admin"], function(){
-		Route::get('/print-post', [UserController::class,'printPost']);
+		// Route::get('/print-post', [UserController::class,'printPost']);
 		Route::get('/dashboard',[AdminController::class,'dashboard']);
+		Route::get('/print/{id?}', [EntryContoller::class,'printPost']);
+
 	});
-// });
+});
 
 Route::group(['prefix'=>"api"], function(){
 	Route::group(['prefix'=>"dashboard"], function(){

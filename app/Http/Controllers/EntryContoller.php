@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Redirect, Validator, Hash, Response, Session, DB;
 use App\Models\Entry, App\Models\User;
 
+use Crypt;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class EntryContoller extends Controller {
 	public function initEntries(Request $request){
 
@@ -206,6 +211,7 @@ class EntryContoller extends Controller {
 			if(!$request->id ){
 				// $entry->unique_id = date('Y').000000 + $entry->id;
 			}
+			$data['id'] = $entry->id;
 			$data['success'] = true;
 		} else {
 			$data['success'] = false;
@@ -215,5 +221,52 @@ class EntryContoller extends Controller {
 		return Response::json($data, 200, []);
 
 	}		
+	public function printPost($id = 0){
+
+        $print_data = DB::table('sitting_entries')->where('id', $id)->first();
+        $print_data->total_member = $print_data->no_of_adults + $print_data->no_of_children + $print_data->no_of_baby_staff;
+        $print_data->adult_first_hour_amount = 0;
+        $print_data->children_first_hour_amount = 0;
+        $hours = $print_data->hours_occ - 1;
+        $print_data->adult_other_hour_amount = 0;
+        $print_data->children_other_hour_amount = 0; 
+
+        if($print_data->hours_occ > 0) {
+            $print_data->adult_first_hour_amount = $print_data->no_of_adults * 30;
+            $print_data->children_first_hour_amount = $print_data->no_of_children * 20;
+        }      
+        
+        if($hours > 0){
+            $print_data->adult_other_hour_amount = $print_data->no_of_adults * 20 * $hours;
+            $print_data->children_other_hour_amount = $print_data->no_of_children * 10 * $hours; 
+        }       
+
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+
+        define("DOMPDF_UNICODE_ENABLED", true);
+        
+        // return view('admin.print_page',compact('print_data'));
+
+
+        $html = view('admin.print_page', compact('print_data'));
+
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4',);
+        $dompdf->setPaper([0,0,300,450]);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream(date("dmY",strtotime("now")).'.pdf',array("Attachment" => false));
+
+        
+        // return view('admin.print_page1');
+    }
 
 }

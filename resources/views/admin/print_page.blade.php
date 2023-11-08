@@ -22,12 +22,11 @@
 		}
 		.table-div{
 			display: table;
-			/*width: 200px;*/
+			width: 100%;
 		}
 		.table-div > div{
 			display: table-cell;
 			vertical-align: middle;
-			/*border: 1px solid #000;*/
 			padding: 2px;
 		}
 		.w-50{
@@ -72,7 +71,7 @@
 				<span class="text">PNR/ID No.: {{$print_data->pnr_uid}}</span>
 			</div>
 			<div class="w-50">
-				<span class="text">Mob: {{$print_data->mobile_no}}</span>
+				<span class="text text-right">Mob: {{$print_data->mobile_no}}</span>
 			</div>
 		</div>
 		<div class="table-div" style="margin-bottom: 20px;">

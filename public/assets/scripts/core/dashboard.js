@@ -122,8 +122,7 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
                     check_out:'',
                 };
                 $scope.init();
-                // window.location = base_url+'/print';
-                window.open(base_url+'/print', '_blank');
+                window.open(base_url+'/admin/print/'+data.id, '_blank');
 
             }
             $scope.loading = false;
