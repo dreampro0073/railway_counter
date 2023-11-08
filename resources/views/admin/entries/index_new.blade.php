@@ -53,16 +53,16 @@
                     <div class="col-md-3">
                         <table class="table table-bordered table-striped" style="width:100%;">
                             <tr>
-                                <td>Shift Collection</td>
-                                <td><b>@{{ total_collection }}</b></td>
-                            </tr>
-                            <tr>
                                 <td>Shift UPI Collection</td>
                                 <td><b>@{{ total_upi_collection }}</b></td>
                             </tr>
                             <tr>
                                 <td>Shift Cash Collection</td>
                                 <td><b>@{{ total_cash_collection }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Shift Collection</td>
+                                <td><b>@{{ total_collection }}</b></td>
                             </tr>
                             <tr>
                                 <td>Last Hour UPI Collection</td>
