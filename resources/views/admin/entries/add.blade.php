@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Address</label>
-                            <input type="text" ng-model="formData.address" class="form-control" />
+                            <input type="text" ng-model="formData.address" class="form-control" required />
                         </div>
                     </div>
                     <div class="row">
@@ -39,12 +39,12 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label>PNR/UID</label>
-                            <input type="number" ng-model="formData.pnr_uid" class="form-control" />
+                            <input type="number" ng-model="formData.pnr_uid" class="form-control" required />
                         </div>
                         
                         <div class="col-md-4 form-group">
                             <label>Train No.</label>
-                            <input type="number" ng-model="formData.train_no" class="form-control" />
+                            <input type="number" ng-model="formData.train_no" class="form-control" required />
                         </div>
                     </div>
                     <div class="row">
@@ -68,6 +68,8 @@
                                 <option ng-repeat="item in pay_types" ng-value=@{{item.value}}>@{{ item.label}}</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="row">
 
                         <div class="col-md-3 form-group">
                             <label>Hour Occ</label>
@@ -105,7 +107,6 @@
                         <button type="submit" class="btn btn-primary" ng-disabled="loading">
                             <span ng-if="!loading">Submit</span>
                             <span ng-if="loading">Loading...</span>
-
                         </button> 
                     </div>  
                     
