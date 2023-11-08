@@ -32,12 +32,23 @@ class EntryContoller extends Controller {
 		$entries = $entries->orderBy('id', "DESC")->where('date',date("Y-m-d"))->get();
 
 		$total_shift_cash = 0;
-		$total_shift_upi = 0;
+		$total_shift_upi = 0;		
+
+		$last_hour_cash_total = 0;
+		$last_hour_upi_total = 0;
+
+		$from_time = date('h:00:00 A');
+		$to_time = date('h:59:59 A');
 
 		if($check_shift != "C"){
 			$total_shift_upi = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->sum("paid_amount");
 
 			$total_shift_cash = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->sum("paid_amount");	
+
+			$last_hour_upi_total = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
+
+			$last_hour_cash_total = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");	
+
 		}
 		
 		if($check_shift == "C"){
@@ -45,9 +56,10 @@ class EntryContoller extends Controller {
 			$total_shift_upi = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->sum("paid_amount");
 
 			$total_shift_cash = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->sum("paid_amount");
+			$last_hour_upi_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount"); 
+			$last_hour_cash_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
 			
 		}
-
 
 		$total_collection = $total_shift_upi + $total_shift_cash;
 
@@ -69,6 +81,11 @@ class EntryContoller extends Controller {
 		$data['total_shift_upi'] = $total_shift_upi;
 		$data['total_shift_cash'] = $total_shift_cash;
 		$data['total_collection'] = $total_collection;
+
+		$data['last_hour_upi_total'] = $last_hour_upi_total;
+		$data['last_hour_cash_total'] = $last_hour_cash_total;
+		$data['last_hour_total'] = $last_hour_upi_total + $last_hour_cash_total;
+
 		$data['check_shift'] = $check_shift;
 		return Response::json($data, 200, []);
 	}	

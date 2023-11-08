@@ -16,6 +16,11 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
     $scope.total_upi_collection = 0;
     $scope.total_cash_collection = 0;
     $scope.total_collection = 0;
+
+    $scope.last_hour_upi_total = 0;
+    $scope.last_hour_cash_total = 0;
+    $scope.last_hour_total = 0;
+
     $scope.check_shift = "";
     $scope.pay_types = [];
     $scope.hours = [];
@@ -51,6 +56,11 @@ app.controller('dashboardCtrl', function($scope , $http, $timeout , DBService) {
                 $scope.total_upi_collection = data.total_shift_upi;
                 $scope.total_cash_collection = data.total_shift_cash;
                 $scope.total_collection = data.total_collection;
+
+                $scope.last_hour_upi_total = data.last_hour_upi_total;
+                $scope.last_hour_cash_total = data.last_hour_cash_total;
+                $scope.last_hour_total = data.last_hour_total;
+                
                 $scope.check_shift = data.check_shift;
             }
         });

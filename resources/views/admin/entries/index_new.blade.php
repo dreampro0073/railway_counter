@@ -11,14 +11,10 @@
                             <span style="font-size: 18px;font-weight: bold;font-style: italic;">M/s New Nabaratna Hospitality Pvt. Ltd.</span> 
                             <div style="font-size: 12px; padding-top: 5px;">Guwahati Railway Station | GSTIN : 18AAICN4763E1ZA</div>
                         </div>
-                        <div class="col-md-6" style="text-align: right;padding: 8px 0;">
+                        <div class="col-md-6" style="text-align: right;padding: 16px 0;">
                             <label>Shift : </label><b> @{{ check_shift }} </b>  
                             <button type="button" ng-click="add()" class="btn btn-primary btn-sm" style="margin-left: 16px;">Add New</button>
-                            <div style="font-size: 12px; padding-top: 5px;">
-                                <label>Total Collection : </label> @{{ total_collection }} | 
-                                <label>Total UPI Collection : </label> @{{ total_upi_collection }} | 
-                                <label>Total Cash Collection : </label> @{{ total_cash_collection }} 
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -52,39 +48,70 @@
                         </div>
                     </form>
                 </div>
-
-                <div>
-                    <table class="table table-bordered table-striped" >
-                        <thead style="background-color: rgba(0,0,0,.075);">
-                            <tr class="table-primary">
-                                <th>S.no</th>
-                                <th>Name</th>
-                                <th>Mobile No</th>
-
-                                <th>PNR</th>
-                                <th>Train</th>
-                                <th>Pay Type</th>
-                                <th>Total Amount</th>
-                                <th>#</th>
+                <div class="row">
+                    <div class="col-md-3">
+                        <table class="table table-bordered table-striped" style="width:100%;">
+                            <tr>
+                                <td>Today Collection</td>
+                                <td><b>@{{ total_collection }}</b></td>
                             </tr>
-                        </thead>
-                        <tbody ng-if="entries.length > 0">
-                            <tr ng-repeat="item in entries">
-                                <td>@{{ $index+1 }}</td>
-                                <td>@{{ item.name }}</td>
-                                <td>@{{ item.mobile_no }}</td>
-
-                                <td>@{{ item.pnr_uid }}</td>
-                                <td>@{{ item.train_no }}</td>
-                                <td>@{{ item.pay_by }}</td>
-                                <td>@{{ item.paid_amount }}</td>
-                                <td>
-                                    <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{{url('/print')}}/@{{item.id}}" class="btn btn-success btn-sm">Print</a></td>
+                            <tr>
+                                <td>Today UPI Collection</td>
+                                <td><b>@{{ total_upi_collection }}</b></td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <div ng-if="entries.length == 0" class="alert alert-danger">Data Not Found!</div>
+                            <tr>
+                                <td>Today Cash Collection</td>
+                                <td><b>@{{ total_cash_collection }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Last Hour UPI Collection</td>
+                                <td><b>@{{ last_hour_upi_total }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Last Hour Cash Collection</td>
+                                <td><b>@{{ last_hour_cash_total }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Last Hour Total Collection</td>
+                                <td><b>@{{ last_hour_total }}</b></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-9">
+                        <div>
+                            <table class="table table-bordered table-striped" >
+                                <thead style="background-color: rgba(0,0,0,.075);">
+                                    <tr class="table-primary">
+                                        <th>S.no</th>
+                                        <th>Name</th>
+                                        <th>Mobile No</th>
+
+                                        <th>PNR</th>
+                                        <th>Train</th>
+                                        <th>Pay Type</th>
+                                        <th>Total Amount</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-if="entries.length > 0">
+                                    <tr ng-repeat="item in entries">
+                                        <td>@{{ $index+1 }}</td>
+                                        <td>@{{ item.name }}</td>
+                                        <td>@{{ item.mobile_no }}</td>
+
+                                        <td>@{{ item.pnr_uid }}</td>
+                                        <td>@{{ item.train_no }}</td>
+                                        <td>@{{ item.pay_by }}</td>
+                                        <td>@{{ item.paid_amount }}</td>
+                                        <td>
+                                            <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{{url('/print')}}/@{{item.id}}" class="btn btn-success btn-sm">Print</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="entries.length == 0" class="alert alert-danger">Data Not Found!</div>
+                        </div>  
+                    </div>
                 </div>
             </div>
            
