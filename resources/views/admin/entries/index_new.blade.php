@@ -61,7 +61,7 @@
                                 <td><b>@{{ total_cash_collection }}</b></td>
                             </tr>
                             <tr>
-                                <td>Shift Collection</td>
+                                <td>Shift Total Collection</td>
                                 <td><b>@{{ total_collection }}</b></td>
                             </tr>
                             <tr>
