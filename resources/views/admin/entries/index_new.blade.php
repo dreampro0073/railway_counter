@@ -11,7 +11,7 @@
                             <span style="font-size: 18px;font-weight: bold;font-style: italic;">M/s New Nabaratna Hospitality Pvt. Ltd.</span> 
                             <div style="font-size: 12px; padding-top: 5px;">Guwahati Railway Station | GSTIN : 18AAICN4763E1ZA</div>
                         </div>
-                        <div class="col-md-6" style="text-align: right;padding:8px 0;">
+                        <div class="col-md-6" style="text-align: right;padding:16px 0;">
                             <label>Shift : </label><b> @{{ check_shift }} </b>  
                             <button type="button" ng-click="add()" class="btn btn-primary btn-sm" style="margin-left: 16px;">Add New</button>
                             <a href="{{url('logout')}}" class="btn btn-warning btn-sm">Logout</a>

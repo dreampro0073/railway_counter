@@ -34,7 +34,9 @@ class EntryContoller extends Controller {
 		if($request->train_no){
 			$entries = $entries->where('sitting_entries.train_no', 'LIKE', '%'.$request->train_no.'%');
 		}
-		$entries = $entries->orderBy('id', "DESC")->where('date',date("Y-m-d"))->get();
+
+		$date_ar = [date("Y-m-d",strtotime('-1 day')),date("Y-m-d",strtotime("now"))];
+		$entries = $entries->orderBy('id', "DESC")->whereBetween('date',$date_ar)->get();
 
 		$total_shift_cash = 0;
 		$total_shift_upi = 0;		
@@ -257,7 +259,7 @@ class EntryContoller extends Controller {
 
         // (Optional) Setup the paper size and orientation
         // $dompdf->setPaper('A4',);
-        $dompdf->setPaper([0,0,300,450]);
+        $dompdf->setPaper([0,0,230,450]);
 
         // Render the HTML as PDF
         $dompdf->render();
