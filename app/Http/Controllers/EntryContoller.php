@@ -22,6 +22,10 @@ class EntryContoller extends Controller {
 		$check_shift = Entry::checkShift();
 
 		$entries = Entry::select('sitting_entries.*');
+		if($request->unique_id){
+			$entries = $entries->where('sitting_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
+		}		
+
 		if($request->name){
 			$entries = $entries->where('sitting_entries.name', 'LIKE', '%'.$request->name.'%');
 		}		
@@ -167,12 +171,14 @@ class EntryContoller extends Controller {
 						$total_amount = $total_amount - $entry->paid_amount;
 						$entry = new Entry;
 						$message = "Stored Successfully!";
+						$entry->unique_id = strtotime('now');
 					}
 				}
 
 			} else {
 				$entry = new Entry;
 				$message = "Stored Successfully!";
+				$entry->unique_id = strtotime('now');
 				
 			}
 
@@ -187,8 +193,6 @@ class EntryContoller extends Controller {
 			$entry->hours_occ = $request->hours_occ ? $request->hours_occ : 0;
 			$entry->check_in = date("h:i A",strtotime($request->check_in));
 			$entry->check_out = date("h:i A",strtotime($request->check_out));
-			// $entry->check_in = date("H:i:s",strtotime($request->check_in));
-			// $entry->check_out = date("H:i:s",strtotime($request->check_out));
 			
 			$entry->seat_no = $request->seat_no;
 			$entry->paid_amount = $total_amount;
@@ -259,7 +263,7 @@ class EntryContoller extends Controller {
 
         // (Optional) Setup the paper size and orientation
         // $dompdf->setPaper('A4',);
-        $dompdf->setPaper([0,0,230,450]);
+        $dompdf->setPaper([0,0,300,405]);
 
         // Render the HTML as PDF
         $dompdf->render();

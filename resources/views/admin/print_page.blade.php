@@ -47,7 +47,14 @@
 	</style>
 </head>
 <body>
-	<div class="main" id="printableArea">
+	@if($type == 'silip')
+		@include('admin.print_stru');
+	@endif
+
+	@if($type == 'shift')
+		@include('admin.shift_print_stru');
+	@endif
+<!-- 	<div class="main" id="printableArea">
 		<h4>
 			M/s New Nabaratna Hospitality Pvt. Ltd.
 		</h4>
@@ -71,15 +78,15 @@
 				<span class="text">PNR/ID No.: {{$print_data->pnr_uid}}</span>
 			</div>
 			<div class="w-50">
-				<span class="text text-right">Mob: {{$print_data->mobile_no}}</span>
+				<span class="text text-right">Mobile: {{$print_data->mobile_no}}</span>
 			</div>
 		</div>
 		<div class="table-div" style="margin-bottom: 20px;">
 			<div class="w-50">
-				<span class="text">In Time: {{$print_data->check_in}}</span>
+				<span class="text">In Time: <b>{{$print_data->check_in}}</b></span>
 			</div>
 			<div class="w-50">
-				<span class="text">Out Time: {{$print_data->check_out}}</span>
+				<span class="text">Out Time: <b>{{$print_data->check_out}}</b></span>
 			</div>
 		</div>
 		<table style="width:100%;margin: -1;" border="1" cellpadding="4" cellspacing="0" >
@@ -114,7 +121,7 @@
 				<td class="w-16">{{$print_data->children_other_hour_amount}}</td>
 			</tr>
 			<tr>
-				<td class="w-50">Age Below5 Years</td>
+				<td class="w-50">Age Below 5 Years</td>
 				<td class="w-16">Free</td>
 				<td class="w-16">{{$print_data->no_of_baby_staff}}</td>
 				<td class="w-16">--</td>
@@ -129,12 +136,16 @@
 		<div style="margin-top: 20px;text-align: right;">
 			<span style="text-align:right;font-weight: bold;">E.&.O.E</span>
 		</div>
-		<div style="margin-top:50px;text-align:center;">
+		<div style="margin-top:10px;text-align:center;">
+
 			<p>
 				<b>*Note : Passengers must protect their own Mobile and luggage.</b>
+			</p>
+			<p style="margin-top:10px;font-size: 16px;">
+				<strong>Thanks Visit Again</strong>
 			</p>
 		</div>
 		
 	</div>
-</body>
+ --></body>
 </html>

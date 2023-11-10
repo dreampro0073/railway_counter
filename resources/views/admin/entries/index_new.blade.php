@@ -27,6 +27,10 @@
                         <div class="row" style="font-size: 14px">
 
                             <div class="col-md-2 form-group">
+                                <label class="label-control">Bill Number</label>
+                                <input type="text" class="form-control" ng-model="filter.unique_id" />
+                            </div>                    
+                            <div class="col-md-2 form-group">
                                 <label class="label-control">Name</label>
                                 <input type="text" class="form-control" ng-model="filter.name" />
                             </div>                    
@@ -42,9 +46,9 @@
                                 <label class="label-control">Train</label>
                                 <input type="text" class="form-control" ng-model="filter.train_no" />
                             </div>
-                            <div class="col-md-4 text-right" style="margin-top: 25px;" class="mb-2">
-                                <button type="button" ng-click="init()" class="btn btn-sm btn-primary">Search</button>
-                                <button type="button" ng-click="filterClear()" class="btn btn-sm btn-warning">Clear</button>
+                            <div class="col-md-2 text-right" style="margin-top: 25px;" class="mb-2">
+                                <button type="button" ng-click="init()" class="btn btn-sm btn-primary" style="width: 70px;">Search</button>
+                                <button type="button" ng-click="filterClear()" class="btn btn-sm btn-warning" style="width: 70px;">Clear</button>
                             </div>
                         </div>
                     </form>
@@ -84,9 +88,9 @@
                                 <thead style="background-color: rgba(0,0,0,.075);">
                                     <tr class="table-primary">
                                         <th>S.no</th>
+                                        <th>Bill no</th>
                                         <th>Name</th>
                                         <th>Mobile No</th>
-
                                         <th>PNR</th>
                                         <th>Train</th>
                                         <th>Pay Type</th>
@@ -97,6 +101,7 @@
                                 <tbody ng-if="entries.length > 0">
                                     <tr ng-repeat="item in entries">
                                         <td>@{{ $index+1 }}</td>
+                                        <td>@{{ item.unique_id }}</td>
                                         <td>@{{ item.name }}</td>
                                         <td>@{{ item.mobile_no }}</td>
 
