@@ -32,6 +32,7 @@ Route::group(['middleware'=>'auth'],function(){
 		// Route::get('/print-post', [UserController::class,'printPost']);
 		Route::get('/dashboard',[AdminController::class,'dashboard']);
 		Route::get('/print/{id?}', [EntryContoller::class,'printPost']);
+		Route::get('/print-report', [EntryContoller::class,'printReports']);
 
 	});
 });

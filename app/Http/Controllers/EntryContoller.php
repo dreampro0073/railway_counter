@@ -19,7 +19,7 @@ use Dompdf\Options;
 class EntryContoller extends Controller {
 	public function initEntries(Request $request){
 
-		$check_shift = Entry::checkShift();
+		// $check_shift = Entry::checkShift();
 
 		$entries = Entry::select('sitting_entries.*');
 		if($request->unique_id){
@@ -42,37 +42,39 @@ class EntryContoller extends Controller {
 		$date_ar = [date("Y-m-d",strtotime('-1 day')),date("Y-m-d",strtotime("now"))];
 		$entries = $entries->orderBy('id', "DESC")->whereBetween('date',$date_ar)->get();
 
-		$total_shift_cash = 0;
-		$total_shift_upi = 0;		
+		// $total_shift_cash = 0;
+		// $total_shift_upi = 0;		
 
-		$last_hour_cash_total = 0;
-		$last_hour_upi_total = 0;
+		// $last_hour_cash_total = 0;
+		// $last_hour_upi_total = 0;
 
-		$from_time = date('h:00:00 A');
-		$to_time = date('h:59:59 A');
+		// $from_time = date('h:00:00 A');
+		// $to_time = date('h:59:59 A');
 
-		if($check_shift != "C"){
-			$total_shift_upi = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->sum("paid_amount");
+		// if($check_shift != "C"){
+		// 	$total_shift_upi = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->sum("paid_amount");
 
-			$total_shift_cash = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->sum("paid_amount");	
+		// 	$total_shift_cash = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->sum("paid_amount");	
 
-			$last_hour_upi_total = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
+		// 	$last_hour_upi_total = Entry::where('date',date("Y-m-d"))->where('pay_type',2)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
 
-			$last_hour_cash_total = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");	
+		// 	$last_hour_cash_total = Entry::where('date',date("Y-m-d"))->where('pay_type',1)->where('shift', $check_shift)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");	
 
-		}
+		// }
 		
-		if($check_shift == "C"){
+		// if($check_shift == "C"){
 
-			$total_shift_upi = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->sum("paid_amount");
+		// 	$total_shift_upi = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->sum("paid_amount");
 
-			$total_shift_cash = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->sum("paid_amount");
-			$last_hour_upi_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount"); 
-			$last_hour_cash_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
+		// 	$total_shift_cash = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->sum("paid_amount");
+		// 	$last_hour_upi_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',2)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount"); 
+		// 	$last_hour_cash_total = Entry::whereBetween('date',[date("Y-m-d",strtotime("-1 day")),date("Y-m-d")])->where('shift', $check_shift)->where('pay_type',1)->whereBetween('check_in', [$from_time, $to_time])->sum("paid_amount");
 			
-		}
+		// }
 
-		$total_collection = $total_shift_upi + $total_shift_cash;
+		// $total_collection = $total_shift_upi + $total_shift_cash;
+
+		$data = Entry::totalShiftData();
 
 		$pay_types = Entry::payTypes();
 		$hours = Entry::hours();
@@ -89,15 +91,15 @@ class EntryContoller extends Controller {
 		$data['entries'] = $entries;
 		$data['pay_types'] = $pay_types;
 		$data['hours'] = $hours;
-		$data['total_shift_upi'] = $total_shift_upi;
-		$data['total_shift_cash'] = $total_shift_cash;
-		$data['total_collection'] = $total_collection;
+		// $data['total_shift_upi'] = $total_shift_upi;
+		// $data['total_shift_cash'] = $total_shift_cash;
+		// $data['total_collection'] = $total_collection;
 
-		$data['last_hour_upi_total'] = $last_hour_upi_total;
-		$data['last_hour_cash_total'] = $last_hour_cash_total;
-		$data['last_hour_total'] = $last_hour_upi_total + $last_hour_cash_total;
+		// $data['last_hour_upi_total'] = $last_hour_upi_total;
+		// $data['last_hour_cash_total'] = $last_hour_cash_total;
+		// $data['last_hour_total'] = $last_hour_upi_total + $last_hour_cash_total;
 
-		$data['check_shift'] = $check_shift;
+		// $data['check_shift'] = $check_shift;
 		return Response::json($data, 200, []);
 	}	
 	
@@ -226,10 +228,27 @@ class EntryContoller extends Controller {
 
 		return Response::json($data, 200, []);
 
-	}		
+	}
+
+	public function printReports(){
+		$print_data = new \stdClass;
+		$data = Entry::totalShiftData();
+		$print_data->type = "shift";
+		$print_data->total_shift_cash = $data['total_shift_cash']; 
+		$print_data->total_shift_upi = $data['total_shift_upi'];
+		$print_data->total_collection = $data['total_collection'];
+		$print_data->last_hour_upi_total = $data['last_hour_upi_total'];
+		$print_data->last_hour_cash_total = $data['last_hour_cash_total'];
+		$print_data->last_hour_total = $data['last_hour_total'];
+		$print_data->check_shift = $data['check_shift'];
+		$print_data->shift_date = $data['shift_date'];
+		$this->printFinal($print_data);
+	}
+	
 	public function printPost($id = 0){
 
         $print_data = DB::table('sitting_entries')->where('id', $id)->first();
+		$print_data->type = "silip";
         $print_data->total_member = $print_data->no_of_adults + $print_data->no_of_children + $print_data->no_of_baby_staff;
         $print_data->adult_first_hour_amount = 0;
         $print_data->children_first_hour_amount = 0;
@@ -245,7 +264,12 @@ class EntryContoller extends Controller {
         if($hours > 0){
             $print_data->adult_other_hour_amount = $print_data->no_of_adults * 20 * $hours;
             $print_data->children_other_hour_amount = $print_data->no_of_children * 10 * $hours; 
-        }       
+        }
+
+		$this->printFinal($print_data);
+	}
+
+	public function printFinal($print_data){
 
         $options = new Options();
         $options->set('isRemoteEnabled', true);
@@ -253,26 +277,13 @@ class EntryContoller extends Controller {
         $dompdf = new Dompdf($options);
 
         define("DOMPDF_UNICODE_ENABLED", true);
-        
-        // return view('admin.print_page',compact('print_data'));
-
 
         $html = view('admin.print_page', compact('print_data'));
 
         $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation
-        // $dompdf->setPaper('A4',);
         $dompdf->setPaper([0,0,300,405]);
-
-        // Render the HTML as PDF
         $dompdf->render();
-
-        // Output the generated PDF to Browser
         $dompdf->stream(date("dmY",strtotime("now")).'.pdf',array("Attachment" => false));
-
-        
-        // return view('admin.print_page1');
     }
 
 }

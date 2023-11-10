@@ -80,6 +80,11 @@
                                 <td>Last Hour Total Collection</td>
                                 <td><b>@{{ last_hour_total }}</b></td>
                             </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="{{url('/admin/print-report')}}" class="btn btn-success btn-sm" target="_blank">Print Report</a>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-md-9">
