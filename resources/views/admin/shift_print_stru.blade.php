@@ -12,9 +12,9 @@
 		<div class="w-50">
 			<span class="text">Shift: {{ $print_data->check_shift }}</span>
 		</div>
-		<div class="w-50 text-right">
+		<!-- <div class="w-50 text-right">
 			<span class="text">Date: {{ $print_data->shift_date }} </span>
-		</div>
+		</div> -->
 	</div>
 	<table style="width:100%;margin: -1;" border="1" cellpadding="4" cellspacing="0" >
         <tr>
